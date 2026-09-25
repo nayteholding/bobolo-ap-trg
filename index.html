@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Thrill Bonus Guide</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+  :root {
+    --ink: #12141f;
+    --ink-2: #1b1d29;
+    --card: #20232f;
+    --card-2: #262a38;
+    --blue: #336aff;
+    --cyan: #22e5ed;
+    --text: #ffffff;
+    --muted: #9a9db0;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--text);
+  }
+  .app {
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    padding-bottom: 110px;
+  }
+
+  /* ---- Hero ---- */
+  .hero {
+    padding: 28px 20px 22px;
+    background: linear-gradient(160deg, var(--ink-2), var(--ink));
+    text-align: center;
+  }
+  .pill {
+    display: inline-block;
+    background: var(--blue);
+    color: #fff;
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    padding: 6px 16px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-size: 22px;
+    margin: 0 0 8px;
+    line-height: 1.3;
+  }
+  .hero p {
+    color: var(--muted);
+    font-size: 14px;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* ---- List ---- */
+  .list {
+    padding: 16px 16px 0;
+  }
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--card);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+  .row:active { background: var(--card-2); }
+  .row .icon {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    border-radius: 50%;
+    background: rgba(51,106,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .row .label {
+    flex: 1;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .row .step-num {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .row .chev {
+    color: var(--muted);
+    font-size: 18px;
+  }
+
+  /* ---- Sticky CTA ---- */
+  .sticky-cta {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(180deg, rgba(18,20,31,0) 0%, var(--ink) 30%);
+    padding: 24px 20px 22px;
+    display: flex;
+    justify-content: center;
+  }
+  .btn {
+    display: block;
+    width: 100%;
+    max-width: 440px;
+    text-align: center;
+    background: var(--blue);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 16px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+  }
+  .btn:active { opacity: 0.85; }
+  .btn.secondary {
+    background: var(--card-2);
+  }
+
+  /* ---- Detail screens ---- */
+  .screen {
+    display: none;
+    padding: 18px 20px 0;
+  }
+  .screen.active { display: block; }
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+    font-size: 15px;
+    margin-bottom: 18px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .screen h2 {
+    font-size: 20px;
+    margin: 0 0 16px;
+  }
+  .step-block {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 14px;
+  }
+  .step-block .n {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--blue);
+    font-size: 13px;
+    font-weight: 700;
+    margin-right: 10px;
+  }
+  .step-block p {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: #e6e7ee;
+    margin: 10px 0 0;
+  }
+  .note {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-top: 16px;
+  }
+
+  #home { display: block; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- HOME -->
+  <div id="home">
+    <div class="hero">
+      <span class="pill">$20 FREE 🎁</span>
+      <h1>Get your $20 bonus in 3 easy steps</h1>
+      <p>Follow the steps below — it only takes a couple of minutes.</p>
+    </div>
+
+    <div class="list">
+      <div class="row" onclick="showScreen('step1')">
+        <div class="icon">📝</div>
+        <div class="label"><span class="step-num">Step 1</span>Create your account</div>
+        <div class="chev">›</div>
+      </div>
+      <div class="row" onclick="showScreen('step2')">
+        <div class="icon">💳</div>
+        <div class="label"><span class="step-num">Step 2</span>Make your $20 deposit</div>
+        <div class="chev">›</div>
+      </div>
+      <div class="row" onclick="showScreen('step3')">
+        <div class="icon">🎁</div>
+        <div class="label"><span class="step-num">Step 3</span>Claim your bonus</div>
+        <div class="chev">›</div>
+      </div>
+      <div class="row" onclick="showScreen('help')">
+        <div class="icon">❓</div>
+        <div class="label">Need help?</div>
+        <div class="chev">›</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="screen" id="step1">
+    <button class="back" onclick="showScreen('home')">‹ Back</button>
+    <h2>📝 Step 1 — Create your account</h2>
+    <div class="step-block">
+      <p><span class="n">1</span>Tap the button below to open the sign-up page.</p>
+      <p><span class="n">2</span>Create your account (email or Google/phone sign-up, whichever is offered).</p>
+      <p><span class="n">3</span>Remember your username — you'll need to send it to us in Step 3.</p>
+    </div>
+    <a class="btn" href="#" onclick="openAffiliateLink(); return false;">👉 Sign up now</a>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="screen" id="step2">
+    <button class="back" onclick="showScreen('home')">‹ Back</button>
+    <h2>💳 Step 2 — Make your $20 deposit</h2>
+    <div class="step-block">
+      <p><span class="n">1</span>Once your account is created, go to the deposit / wallet section.</p>
+      <p><span class="n">2</span>Make a minimum deposit of $20 using any available method.</p>
+      <p><span class="n">3</span>Once it's done, come back here and move on to Step 3.</p>
+    </div>
+    <button class="btn secondary" onclick="showScreen('step3')">Next step ›</button>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="screen" id="step3">
+    <button class="back" onclick="showScreen('home')">‹ Back</button>
+    <h2>🎁 Step 3 — Claim your bonus</h2>
+    <div class="step-block">
+      <p><span class="n">1</span>Tap the button below to go back to our Telegram chat.</p>
+      <p><span class="n">2</span>Send us your username on the site.</p>
+      <p><span class="n">3</span>We'll activate your $20 bonus manually and confirm it to you here. 🎉</p>
+    </div>
+    <a class="btn" href="#" onclick="openBotChat(); return false;">💬 Message us on Telegram</a>
+  </div>
+
+  <!-- HELP -->
+  <div class="screen" id="help">
+    <button class="back" onclick="showScreen('home')">‹ Back</button>
+    <h2>❓ Need help?</h2>
+    <div class="step-block">
+      <p>If anything isn't clear, or a page isn't loading properly, just message us directly — we'll help you out.</p>
+    </div>
+    <a class="btn" href="#" onclick="openBotChat(); return false;">💬 Contact us</a>
+    <p class="note">We usually reply quickly. No question is a silly question — just ask!</p>
+  </div>
+
+  <div class="sticky-cta" id="stickyCta">
+    <a class="btn" href="#" onclick="openAffiliateLink(); return false;">👉 Sign up now</a>
+  </div>
+
+</div>
+
+<script>
+  var AFFILIATE_LINK = "https://thrill.com/?r=nayte";
+  var BOT_USERNAME = "twenty20_bonus_bot";
+
+  var tg = window.Telegram ? window.Telegram.WebApp : null;
+  if (tg) { tg.ready(); tg.expand(); }
+
+  function showScreen(id) {
+    document.getElementById("home").style.display = (id === "home") ? "block" : "none";
+    document.querySelectorAll(".screen").forEach(function (el) {
+      el.classList.remove("active");
+    });
+    if (id !== "home") {
+      document.getElementById(id).classList.add("active");
+    }
+    document.getElementById("stickyCta").style.display = (id === "home") ? "flex" : "none";
+    window.scrollTo(0, 0);
+  }
+
+  function openAffiliateLink() {
+    if (tg && tg.openLink) {
+      tg.openLink(AFFILIATE_LINK);
+    } else {
+      window.open(AFFILIATE_LINK, "_blank");
+    }
+  }
+
+  function openBotChat() {
+    var link = "https://t.me/" + BOT_USERNAME;
+    if (tg && tg.openTelegramLink) {
+      tg.openTelegramLink(link);
+    } else {
+      window.open(link, "_blank");
+    }
+  }
+</script>
+</body>
+</html>
